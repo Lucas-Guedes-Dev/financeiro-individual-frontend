@@ -38,6 +38,5 @@ export const Description = styled.input`
     font-weight: bold;
     border-radius: 8px;
     border: 1px solid rgb(180, 180, 180);
-
     text-decoration: none;
-`
+`;

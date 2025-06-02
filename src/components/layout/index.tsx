@@ -2,18 +2,16 @@ import React from 'react';
 import Sidebar from '../sidebar';
 import Navbar from '../navbar';
 import { Content, LayoutContainer } from './style';
+import { Outlet } from 'react-router-dom';
 
-interface LayoutProps {
-    children: React.ReactElement
-}
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC = () => {
     return (
         <LayoutContainer>
             <Sidebar />
             <div style={{ flex: 1, width: '100%' }}>
                 <Navbar />
-                <Content>{children}</Content>
+                <Content><Outlet /></Content>
             </div>
         </LayoutContainer>
     );
