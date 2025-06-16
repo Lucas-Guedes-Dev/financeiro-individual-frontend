@@ -43,11 +43,12 @@ export const Tabs = styled.div`
 
 export const Tab = styled.button<{ "data-active"?: boolean }>`
   padding: 5px 10px;
-  background-color: ${(props) =>
-    props["data-active"] ? "#3498db" : "#ecf0f1"};
-  color: ${(props) => (props["data-active"] ? "white" : "black")};
-  border: none;
-  border-radius: 4px;
+  background-color: ${({ theme, "data-active": active }) =>
+    active ? theme.button.background : theme.colors.secondary};
+  color: ${({ theme, "data-active": active }) =>
+    active ? theme.button.color : theme.colors.text};
+  border: ${({ theme }) => theme.button.border};
+  border-radius: ${({ theme }) => theme.button.borderRadius};
 `;
 
 export const Actions = styled.div`
@@ -63,14 +64,15 @@ export const IconButton = styled.button`
   justify-content: center;
   width: 32px;
   height: 32px;
-  padding: 4px;
-  background: transparent;
-  border: none;
-  border-radius: 4px;
+  padding: ${({ theme }) => theme.button.padding};
+  background: ${({ theme }) => theme.button.background};
+  color: ${({ theme }) => theme.button.color};
+  border: ${({ theme }) => theme.button.border};
+  border-radius: ${({ theme }) => theme.button.borderRadius};
   cursor: pointer;
 
   &:hover {
-    background-color: #e8e8ec;
+    opacity: 0.9;
   }
 `;
 
@@ -104,11 +106,11 @@ export const SidePanel = styled.aside`
 `;
 
 export const ButtonGreen = styled.button`
-  background-color: #2c3e50;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
+  background-color: ${({ theme }) => theme.button.background};
+  color: ${({ theme }) => theme.button.color};
+  border: ${({ theme }) => theme.button.border};
+  padding: ${({ theme }) => theme.button.padding};
+  border-radius: ${({ theme }) => theme.button.borderRadius};
 `;
 
 export const Summary = styled.div`

@@ -29,7 +29,20 @@ export const Div2 = styled.div`
     @media screen  {
         
     }
-`
+`;
+
+export const LaunchButton = styled.button`
+    background-color: ${({ theme }) => theme.button.background};
+    color: ${({ theme }) => theme.button.color};
+    border: ${({ theme }) => theme.button.border};
+    border-radius: ${({ theme }) => theme.button.borderRadius};
+    padding: ${({ theme }) => theme.button.padding};
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.9;
+    }
+`;
 
 export const Description = styled.input`
     padding: 5px;

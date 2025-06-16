@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Description, Div1, Div2 } from "./style";
+import { Container, Description, Div1, Div2, LaunchButton } from "./style";
 
 
 const Lacamentos: React.FC = () => {
@@ -15,7 +15,7 @@ const Lacamentos: React.FC = () => {
                 <Description value={text} onChange={(event) => setText(event?.target.value)} />
             </Div1>
             <Div2>
-
+                <LaunchButton>Exemplo</LaunchButton>
             </Div2>
         </Container>
     )
