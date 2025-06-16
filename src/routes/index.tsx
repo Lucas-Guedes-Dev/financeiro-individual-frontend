@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../components/layout';
-import Lacamentos from '../pages/lancamentos';
-import Login from '../pages/login';
 import Dashboard from '../pages/dashboard';
+import FormLancamentos from '../pages/lancamentos';
+import Login from '../pages/login';
 
 function App() {
     return (
@@ -20,7 +20,10 @@ function App() {
                 <Route path="/contact" element={
                     <div className="route-content">Contact</div>
                 } />
-                <Route path="/lancamentos" element={<Lacamentos />} />
+       
+                <Route path="/about" element={<div>about</div>} />
+                <Route path="/contact" element={<div>contact</div>} />
+                <Route path="/lancamentos/novo" element={<FormLancamentos />} />
             </Route>
 
 
