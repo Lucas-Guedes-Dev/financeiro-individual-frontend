@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaPrint, FaFileExport, FaPlus, FaExchangeAlt } from "react-icons/fa";
+import { FaPrint, FaFileExport, FaPlus, FaExchangeAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   Container,
   Breadcrumb,
@@ -12,6 +12,7 @@ import {
   Actions,
   IconButton,
   SidePanel,
+  ToggleButton,
   ButtonGreen,
   Summary,
   SummaryItem,
@@ -32,6 +33,7 @@ const CaixasEBancos: React.FC = () => {
   const [tab, setTab] = useState<string>("movimentacoes");
   const [showLaunch, setShowLaunch] = useState(false);
   const [showTransfer, setShowTransfer] = useState(false);
+  const [showInfo, setShowInfo] = useState(true);
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
   const [value, setValue] = useState("");
@@ -423,31 +425,40 @@ const CaixasEBancos: React.FC = () => {
           </table>
         </TableWrapper>
       </div>
-      <SidePanel>
-        <Summary>
-          <SummaryItem>
-            Quantidade de registros:
-            <strong>4</strong>
-          </SummaryItem>
-          <SummaryItem>
-            Saldo atual da conta:
-            <strong>R$ 100,00</strong>
-          </SummaryItem>
-          <SummaryItem style={{ color: "green" }}>
-            Entradas:
-            <strong>R$ 180,00</strong>
-          </SummaryItem>
-          <SummaryItem style={{ color: "red" }}>
-            Saídas:
-            <strong>R$ 80,00</strong>
-          </SummaryItem>
-          <div style={{ marginTop: "10px" }}>
-            <strong>Saldos</strong>
-          </div>
-          <div>Conta 1 - R$ 70,00</div>
-          <div>Conta 2 - R$ 30,00</div>
-        </Summary>
-      </SidePanel>
+      {showInfo ? (
+        <SidePanel>
+          <ToggleButton onClick={() => setShowInfo(false)}>
+            <FaChevronRight />
+          </ToggleButton>
+          <Summary>
+            <SummaryItem>
+              Quantidade de registros:
+              <strong>4</strong>
+            </SummaryItem>
+            <SummaryItem>
+              Saldo atual da conta:
+              <strong>R$ 100,00</strong>
+            </SummaryItem>
+            <SummaryItem style={{ color: "green" }}>
+              Entradas:
+              <strong>R$ 180,00</strong>
+            </SummaryItem>
+            <SummaryItem style={{ color: "red" }}>
+              Saídas:
+              <strong>R$ 80,00</strong>
+            </SummaryItem>
+            <div style={{ marginTop: "10px" }}>
+              <strong>Saldos</strong>
+            </div>
+            <div>Conta 1 - R$ 70,00</div>
+            <div>Conta 2 - R$ 30,00</div>
+          </Summary>
+        </SidePanel>
+      ) : (
+        <ToggleButton collapsed onClick={() => setShowInfo(true)}>
+          <FaChevronLeft />
+        </ToggleButton>
+      )}
       <SlidePanel open={showLaunch}>
         <button onClick={() => setShowLaunch(false)}>Fechar</button>
         <h3>Lançamento de caixa</h3>
