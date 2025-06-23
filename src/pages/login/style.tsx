@@ -2,6 +2,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+export const ContainerForm = styled.div`
+  flex: 1;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -38,23 +47,20 @@ export const Button = styled.button`
   }
 `;
 
-export const Button2 = styled.button`
-  padding: 12px;
-  font-size: 16px;
-  background-color: rgb(55, 0, 255);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
 
-  &:hover {
-    background-color: #0056b3;
-  }
+
+export const Img = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 3;
+  width: 100%;
+  height: 100%;
 `;
 
-export const LogoImg = styled.img`
-  width: 200px;
-  height: auto;
-  margin-bottom: 10px;
-  margin-top: 0px;
-`;
+export const RowTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+`
