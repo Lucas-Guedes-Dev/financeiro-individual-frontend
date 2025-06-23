@@ -1,9 +1,10 @@
-import { Routes, Route } from 'react-router-dom';
-import Layout from '../components/layout';
+import { Routes, Route } from "react-router-dom";
+import Layout from "../components/layout";
+import CaixasEBancos from "../pages/caixas-bancos";
+import Login from "../pages/login";
 import Dashboard from '../pages/dashboard';
 import PrivateRoute from './privateRoute';
 import FormLancamentos from '../pages/lancamentos';
-import Login from '../pages/login';
 
 function App() {
     return (
@@ -35,9 +36,8 @@ function App() {
                 <Route path="/lancamentos/novo" element={<PrivateRoute><FormLancamentos /></PrivateRoute>} />
             </Route>
 
-
-        </Routes>
-
+            <Route path="/lancamentos" element={<CaixasEBancos />} />
+        </Routes >
     );
 }
 
