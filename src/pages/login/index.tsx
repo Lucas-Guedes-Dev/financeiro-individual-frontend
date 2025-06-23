@@ -9,16 +9,21 @@ import {
   LogoImg,
 } from "./style";
 import Logo from "../../assets/Logo.jpeg";
+import Auth from "../../services/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const loginService = new Auth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Senha:", senha);
-    // Aqui você conecta com sua API, se quiser
+
+    if (await loginService.Login(email, senha)) {
+      navigate('/')
+    }
   };
 
   return (
@@ -27,7 +32,7 @@ const Login: React.FC = () => {
       <Titulo>Faça seu login</Titulo>
       <Form onSubmit={handleSubmit}>
         <Input
-          type="email"
+          type="text"
           placeholder="Digite seu e-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

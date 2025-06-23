@@ -22,39 +22,7 @@ const pieData = [
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#e61a0b"];
 
-const timelineData = [
-  {
-    name: "George Washington",
-    start: 1789,
-    duration: 1797 - 1789,
-    role: "President",
-  },
-  {
-    name: "John Adams (Pres.)",
-    start: 1797,
-    duration: 1801 - 1797,
-    role: "President",
-  },
-  {
-    name: "Thomas Jefferson",
-    start: 1801,
-    duration: 1809 - 1801,
-    role: "President",
-  },
-  {
-    name: "John Adams (Vice)",
-    start: 1789,
-    duration: 1797 - 1789,
-    role: "Vice President",
-  },
-];
 
-const enrichedTimelineData = timelineData.map((d) => ({
-  ...d,
-  end: d.start + d.duration,
-}));
-
-// Cria um timeline fictício com base no pieData
 const pieTimelineData = [
   { name: "Ganhos", start: 2020, duration: 2, role: "Ganhos" },
   { name: "Investimentos", start: 2022, duration: 1, role: "Investimentos" },

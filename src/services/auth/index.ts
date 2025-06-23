@@ -3,12 +3,21 @@ import type { AuthResponse } from "./types";
 
 class Auth {
 
-    public Login = async (username: string, senha: string): Promise<AuthResponse> => {
+    async Login(username: string, password: string): Promise<boolean> {
+        const response = await api.post<AuthResponse>('/login', {
+            username,
+            password,
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+        });
 
-        const request = await api.post<AuthResponse>('/login', { username: username, senha: senha })
+        localStorage.setItem('token', response.data.access_token);
 
-        return request.data;
-    }
+        return true;
+    };
 }
 
 export default Auth;
