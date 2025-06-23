@@ -8,7 +8,6 @@ export const LayoutContainer = styled.div`
 
 export const Content = styled.main`
   flex: 1;
-  background-color: #f4f4f9;
   padding: 15px;
   overflow-y: auto;
   max-height: calc(100vh - 60px); /* Adjust based on your navbar height */
