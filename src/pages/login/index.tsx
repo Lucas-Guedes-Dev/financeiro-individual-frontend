@@ -13,6 +13,7 @@ import BackgroundImage from "../../assets/financial-login.jpg";
 import Auth from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import { FaPiggyBank } from "react-icons/fa6";
+import { toast } from 'react-toastify';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -22,10 +23,20 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const response = await loginService.Login(email, senha);
 
-    if (await loginService.Login(email, senha)) {
-      navigate('/')
+      if (response.status === 200) {
+        toast.success('Login realizado com sucesso');
+        localStorage.setItem('token', response.data.access_token)
+        navigate('/');
+      }
+    } catch (error: any) {
+      if (error.status === 401) {
+        toast.error('Usuário ou senha incorretos');
+      }
     }
+
   };
 
   return (

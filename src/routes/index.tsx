@@ -34,9 +34,10 @@ function App() {
                 <Route path="/about" element={<div>about</div>} />
                 <Route path="/contact" element={<div>contact</div>} />
                 <Route path="/lancamentos/novo" element={<PrivateRoute><FormLancamentos /></PrivateRoute>} />
+                <Route path="/lancamentos" element={<CaixasEBancos />} />
+
             </Route>
 
-            <Route path="/lancamentos" element={<CaixasEBancos />} />
         </Routes >
     );
 }

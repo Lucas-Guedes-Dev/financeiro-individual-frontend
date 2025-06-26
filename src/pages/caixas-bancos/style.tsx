@@ -7,26 +7,6 @@ export const Container = styled.div`
   height: 100vh;
 `;
 
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-  gap: 10px;
-`;
-
-export const Breadcrumb = styled.span`
-  font-weight: bold;
-`;
-
-export const Selector = styled.select`
-  padding: 10px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: 8px;
-`;
-
 export const SearchInput = styled.input`
   width: 100%;
   padding: 5px;

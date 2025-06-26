@@ -71,8 +71,6 @@ const FormLancamentos: React.FC = () => {
                         variant="filled"
                     />
 
-
-
                     <StyledTextField
                         id="filled-textarea"
                         label="Valor"
@@ -80,9 +78,6 @@ const FormLancamentos: React.FC = () => {
                         multiline
                         variant="filled"
                     />
-
-
-
 
                     <StyledTextField
                         id="filled-textarea"

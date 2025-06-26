@@ -6,21 +6,13 @@ function Sidebar() {
       <h2>Menu</h2>
       <NavList>
         <NavItem>
-          <StyledNavLink to="/" end>
-            Home
-          </StyledNavLink>
+          <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
         </NavItem>
         <NavItem>
-          <StyledNavLink to="/about">About</StyledNavLink>
-        </NavItem>
-        <NavItem>
-          <StyledNavLink to="/contact">Contact</StyledNavLink>
+          <StyledNavLink to="/conta-bancaria">Conta Bancaria</StyledNavLink>
         </NavItem>
         <NavItem>
           <StyledNavLink to="/lancamentos">Lançamentos</StyledNavLink>
-        </NavItem>
-        <NavItem>
-          <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
         </NavItem>
       </NavList>
     </SidebarContainer>

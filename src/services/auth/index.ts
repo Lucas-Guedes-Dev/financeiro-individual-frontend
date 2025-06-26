@@ -3,7 +3,7 @@ import type { AuthResponse } from "./types";
 
 class Auth {
 
-    async Login(username: string, password: string): Promise<boolean> {
+    async Login(username: string, password: string) {
         const response = await api.post<AuthResponse>('/login', {
             username,
             password,
@@ -14,9 +14,7 @@ class Auth {
             withCredentials: true,
         });
 
-        localStorage.setItem('token', response.data.access_token);
-
-        return true;
+        return response;
     };
 }
 

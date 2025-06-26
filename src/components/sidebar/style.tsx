@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
- 
+
 export const SidebarContainer = styled.aside`
   width: 250px;
-  background-color: #2c3e50;
+  background-color: ${({ theme }) => (theme.colors.primary)};
   color: white;
   padding: 20px;
   display: flex;
@@ -12,30 +12,31 @@ export const SidebarContainer = styled.aside`
   top: 0;
   left: 0;
 `;
- 
+
 export const NavList = styled.ul`
   list-style: none;
   padding: 0;
 `;
- 
+
 export const NavItem = styled.li`
   margin: 10px 0;
 `;
- 
+
 export const StyledNavLink = styled(NavLink)`
-  color: #ecf0f1;
+  color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
   font-size: 1.1rem;
   padding: 10px;
   display: block;
   border-radius: 4px;
- 
+  
   &.active {
-    background-color: #3498db;
-    color: white;
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.textDark};
   }
  
   &:hover {
-    background-color: #34495e;
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;

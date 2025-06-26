@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { FaPrint, FaFileExport, FaPlus, FaExchangeAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   Container,
-  Breadcrumb,
-  Header,
-  Selector,
   SearchInput,
   Tabs,
   Tab,
@@ -347,14 +344,6 @@ const CaixasEBancos: React.FC = () => {
   return (
     <Container>
       <div style={{ flex: 1 }}>
-        <Header>
-          <Breadcrumb>... &gt; Lançamentos</Breadcrumb>
-          <Selector defaultValue="all">
-            <option value="all">Todas contas ⏷</option>
-            <option value="1">Conta 1</option>
-            <option value="2">Conta 2</option>
-          </Selector>
-        </Header>
         <Actions>
           <IconButton title="Imprimir saldos">
             <FaPrint />
