@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   gap: 20px;
   width: 100%;
-  height: 100vh;
+  height: auto;
 `;
 
 export const SearchInput = styled.input`
@@ -19,6 +19,17 @@ export const Tabs = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TabContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 1;
+  gap: 5px;
 `;
 
 export const Tab = styled.button<{ "data-active"?: boolean }>`
@@ -28,14 +39,6 @@ export const Tab = styled.button<{ "data-active"?: boolean }>`
   color: ${({ theme, "data-active": active }) =>
     active ? theme.button.color : theme.colors.text};
   border: ${({ theme }) => theme.button.border};
-  border-radius: ${({ theme }) => theme.button.borderRadius};
-`;
-
-export const Actions = styled.div`
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-bottom: 10px;
 `;
 
 export const IconButton = styled.button`
@@ -61,7 +64,7 @@ export const TableWrapper = styled.div`
   border-radius: 8px;
 
   overflow-y: auto;
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 200px);
   table {
     width: 100%;
     border-collapse: collapse;
@@ -81,7 +84,6 @@ export const SidePanel = styled.aside`
   gap: 10px;
   background-color: #fff;
   padding: 10px;
-  border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
@@ -116,7 +118,6 @@ export const ButtonGreen = styled.button`
 export const Summary = styled.div`
   background-color: #f4f4f9;
   padding: 10px;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -131,7 +132,6 @@ export const SideLink = styled.a`
   color: #2c3e50;
   text-decoration: none;
   padding: 10px;
-  border-radius: 8px;
   cursor: pointer;
   &:hover {
     background-color: #e8e8ec;

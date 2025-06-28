@@ -6,7 +6,6 @@ import {
   Tabs,
   Tab,
   TableWrapper,
-  Actions,
   IconButton,
   SidePanel,
   ToggleButton,
@@ -24,6 +23,7 @@ import {
   PanelActions,
   BalanceInfo,
   Arrow,
+  TabContainer,
 } from "./style";
 
 const CaixasEBancos: React.FC = () => {
@@ -65,274 +65,13 @@ const CaixasEBancos: React.FC = () => {
     },
     {
       id: 2,
-      data: "02/06/2025",
-      historico: "Pagamento recebido via transferência",
-      cliente: "Beltrano ME",
-      conta: "01 - Conta Corrente",
-      valor: "V 80,00",
-      type: "entrada" as const,
-    },
-    {
-      id: 3,
-      data: "03/06/2025",
-      historico: "Pagamento de boleto",
-      cliente: "Fornecedor X",
-      conta: "01 - Conta Corrente",
-      valor: "R$ 50,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
+      data: "01/06/2025",
+      historico: "Ref. ao pedido de venda nº 12345 | Método de pagamento: PIX",
+      cliente: "Fulano LTDA",
       conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
+      valor: "V 100,00",
       type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
-    {
-      id: 4,
-      data: "04/06/2025",
-      historico: "Compra de materiais",
-      cliente: "Fornecedor Y",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "R$ 30,00",
-      type: "saida" as const,
-    },
+    }
   ];
 
   const filteredRows = rows.filter((r) => {
@@ -344,40 +83,45 @@ const CaixasEBancos: React.FC = () => {
   return (
     <Container>
       <div style={{ flex: 1 }}>
-        <Actions>
-          <IconButton title="Imprimir saldos">
-            <FaPrint />
-          </IconButton>
-          <IconButton title="Exportar extrato">
-            <FaFileExport />
-          </IconButton>
-          <IconButton title="Incluir lançamento" onClick={() => setShowLaunch(true)}>
-            <FaPlus />
-          </IconButton>
-          <IconButton
-            title="Transferência entre contas"
-            onClick={() => setShowTransfer(true)}
-          >
-            <FaExchangeAlt />
-          </IconButton>
-        </Actions>
+
         <SearchInput placeholder="Pesquise por nome ou histórico" />
         <Tabs>
-          <Tab
-            onClick={() => setTab("movimentacoes")}
-            data-active={tab === "movimentacoes"}
-          >
-            Movimentações
-          </Tab>
-          <Tab
-            onClick={() => setTab("entradas")}
-            data-active={tab === "entradas"}
-          >
-            Entradas
-          </Tab>
-          <Tab onClick={() => setTab("saidas")} data-active={tab === "saidas"}>
-            Saídas
-          </Tab>
+          <TabContainer>
+            <Tab
+              onClick={() => setTab("movimentacoes")}
+              data-active={tab === "movimentacoes"}
+            >
+              Movimentações
+            </Tab>
+            <Tab
+              onClick={() => setTab("entradas")}
+              data-active={tab === "entradas"}
+            >
+              Entradas
+            </Tab>
+            <Tab onClick={() => setTab("saidas")} data-active={tab === "saidas"}>
+              Saídas
+            </Tab>
+          </TabContainer>
+
+          <TabContainer style={{ justifyContent: 'flex-end' }}>
+            <IconButton title="Imprimir saldos">
+              <FaPrint />
+            </IconButton>
+            <IconButton title="Exportar extrato">
+              <FaFileExport />
+            </IconButton>
+            <IconButton title="Incluir lançamento" onClick={() => setShowLaunch(true)}>
+              <FaPlus />
+            </IconButton>
+            <IconButton
+              title="Transferência entre contas"
+              onClick={() => setShowTransfer(true)}
+            >
+              <FaExchangeAlt />
+            </IconButton>
+          </TabContainer>
+
         </Tabs>
         <TableWrapper>
           <table>

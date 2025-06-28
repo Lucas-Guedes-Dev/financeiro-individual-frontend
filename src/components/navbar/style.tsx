@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const NavbarContainer = styled.nav`
-  background-color: #01233a;
+  background-color: ${({ theme }) => theme.colors.secondary};
   padding: 20px 20px;
-  color: white;
+  color:  ${({ theme }) => theme.colors.text};
   display: flex;
   justify-content: space-between;
   align-items: center;
