@@ -19,6 +19,7 @@ export const ContainerForm = styled.div`
 
 export const Titulo = styled.h2`
   margin-bottom: 20px;
+  color: ${({ theme }) => theme.colors.textDark};
 `;
 
 export const Form = styled.form`
@@ -36,14 +37,14 @@ export const Input = styled.input`
 export const Button = styled.button`
   padding: 12px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 

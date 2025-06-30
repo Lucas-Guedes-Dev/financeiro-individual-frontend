@@ -207,14 +207,4 @@ export const PanelActions = styled.div`
   gap: 10px;
   margin-top: auto;
   margin-bottom: 40px;
-`;
-
-export const BalanceInfo = styled.span`
-  font-size: 10px;
-  color: #666;
-`;
-
-export const Arrow = styled.span`
-  font-size: 20px;
-  align-self: center;
-`;
+  `;

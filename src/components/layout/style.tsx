@@ -10,5 +10,5 @@ export const Content = styled.main`
   flex: 1;
   padding: 15px;
   overflow-y: auto;
-  max-height: calc(100vh - 60px); /* Adjust based on your navbar height */
+  max-height: calc(100vh - 60px); 
 `;

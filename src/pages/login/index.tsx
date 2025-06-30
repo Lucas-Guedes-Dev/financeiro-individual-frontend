@@ -14,12 +14,14 @@ import Auth from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import { FaPiggyBank } from "react-icons/fa6";
 import { toast } from 'react-toastify';
+import { useTheme } from "styled-components";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const loginService = new Auth();
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +47,7 @@ const Login: React.FC = () => {
       <ContainerForm>
         <RowTitle>
           <Titulo>Financeiros</Titulo>
-          <FaPiggyBank size={30} />
+          <FaPiggyBank size={30} color={theme.colors.textDark} />
         </RowTitle>
 
         <Form onSubmit={handleSubmit}>
