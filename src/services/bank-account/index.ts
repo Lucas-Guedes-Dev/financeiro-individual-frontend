@@ -16,7 +16,7 @@ class BankAcoount {
     }
 
     async getAll(): Promise<BankAccountResponse[]> {
-        const request = await api.get('/BankAccount/GetAll');
+        const request = await api.get('/BankAccount/All');
 
         return request.data;
     }

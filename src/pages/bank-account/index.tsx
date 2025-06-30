@@ -1,44 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Collumn, Container, IconButton, Row, TableWrapper } from "./style";
 import { FaPlus } from "react-icons/fa";
-import { ButtonGreen, FieldLabel, FieldRow, FieldWrapper, PanelActions, PanelForm, SelectInput, SlidePanel, TextArea, TextInput } from "../caixas-bancos/style";
+import { ButtonGreen, FieldLabel, FieldRow, FieldWrapper, PanelActions, PanelForm, SlidePanel, TextInput } from "../caixas-bancos/style";
+import { Title } from "../../components/navbar/style";
+import { formatRealValue } from "../../util";
+import BankAcoount from "../../services/bank-account";
+import { toast } from "react-toastify";
+import type { BankAccountResponse } from "../../services/bank-account/types";
 
-const BankAccount: React.FC = () => {
+const BankAccountScreen: React.FC = () => {
+    const service = new BankAcoount();
+
     const [showLaunch, setShowLaunch] = useState(false);
-    const [category, setCategory] = useState("");
-    const [date, setDate] = useState("");
-    const [value, setValue] = useState("");
-    const [type, setType] = useState("entrada");
-    const [competencia, setCompetencia] = useState("");
-    const [account, setAccount] = useState("");
-    const [historico, setHistorico] = useState("");
+    const [name, setName] = useState("");
+    const [accountNumber, setAccountNumber] = useState("");
+    const [value, setValue] = useState("0");
+    const [accountList, setAccountList] = useState<BankAccountResponse[]>([]);
 
-    const filteredRows = [{
-        id: 1,
-        data: "01/06/2025",
-        historico: "Ref. ao pedido de venda nº 12345 | Método de pagamento: PIX",
-        cliente: "Fulano LTDA",
-        conta: "02 - Mercado Livre (Ebazarr)",
-        valor: "V 100,00",
-        type: "entrada" as const,
-    }, {
-        id: 1,
-        data: "01/06/2025",
-        historico: "Ref. ao pedido de venda nº 12345 | Método de pagamento: PIX",
-        cliente: "Fulano LTDA",
-        conta: "02 - Mercado Livre (Ebazarr)",
-        valor: "V 100,00",
-        type: "saida" as const,
-    },];
+    const sendNewAccount = async () => {
+        const create = await service.create({
+            bank_name: name,
+            account_number: accountNumber,
+            balance: Number(value)
+        })
+
+        setShowLaunch(true);
+
+        if (create) {
+            toast.success('Conta bancária criada com sucesso')
+            setShowLaunch(false)
+            return
+        }
+
+        toast.error('Erro ao criar a conta bancária')
+        return
+    }
+
+    const getAllAccount = async () => {
+        const response: BankAccountResponse[] = await service.getAll();
+
+        setAccountList(response)
+    }
+
+    useEffect(() => {
+        getAllAccount();
+    }, [])
+
     return (
         <Container>
             <Row>
                 <Collumn>
-                    ola
+                    <Title>
+                        Conta Bancária
+                    </Title>
                 </Collumn>
                 <Collumn style={{ justifyContent: "flex-end" }}>
                     <IconButton onClick={() => setShowLaunch(true)}>
-                        Novo
+                        Nova Conta
                         <FaPlus size={15} color="white" />
                     </IconButton>
                 </Collumn>
@@ -48,30 +66,20 @@ const BankAccount: React.FC = () => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Data</th>
-                            <th>Categoria</th>
-                            <th>Histórico</th>
-                            <th>Cliente/Fornecedor</th>
+                            <th>Nome</th>
                             <th>Conta</th>
-                            <th>Valor</th>
+                            <th>Valor da conta</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredRows.map((row) => (
-                            <tr key={row.id}>
+                        {accountList.map((row, index) => (
+                            <tr key={index}>
                                 <td>
                                     <input type="checkbox" />
                                 </td>
-                                <td>{row.data}</td>
-                                <td></td>
-                                <td>{row.historico}</td>
-                                <td>{row.cliente}</td>
-                                <td>{row.conta}</td>
-                                <td
-                                    style={{ color: row.type === "entrada" ? "green" : "red" }}
-                                >
-                                    {row.valor}
-                                </td>
+                                <td>{row.bank_name}</td>
+                                <td>{row.account_number}</td>
+                                <td>{formatRealValue(`${row.balance}`)}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -80,98 +88,41 @@ const BankAccount: React.FC = () => {
 
             <SlidePanel open={showLaunch}>
                 <button onClick={() => setShowLaunch(false)}>Fechar</button>
-                <h3>Lançamento de caixa</h3>
+                <h3>Cadastro de Conta Bancaria</h3>
                 <PanelForm
                     onSubmit={(e) => {
                         e.preventDefault();
-                        console.log({
-                            category,
-                            date,
-                            value,
-                            type,
-                            competencia,
-                            account,
-                            historico,
-                        });
+                        sendNewAccount();
                     }}
                 >
-                    <FieldWrapper style={{ width: "380px" }}>
-                        <FieldLabel>Categoria</FieldLabel>
-                        <SelectInput
-                            style={{ height: "30px" }}
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                        >
-                            <option value="" disabled>
-                                Selecione a categoria
-                            </option>
-                            <option value="venda">Venda</option>
-                            <option value="servico">Serviço</option>
-                            <option value="salario">Salário</option>
-                            <option value="impostos">Impostos</option>
-                            <option value="outros">Outros</option>
-                        </SelectInput>
-                    </FieldWrapper>
                     <FieldRow>
                         <FieldWrapper>
-                            <FieldLabel>Data</FieldLabel>
+                            <FieldLabel>Nome</FieldLabel>
                             <TextInput
-                                type="date"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                         </FieldWrapper>
                         <FieldWrapper>
-                            <FieldLabel>Valor R$</FieldLabel>
+                            <FieldLabel>Número da conta</FieldLabel>
                             <TextInput
-                                type="number"
-                                value={value}
+                                type="text"
+                                value={accountNumber}
+                                onChange={(e) => setAccountNumber(e.target.value)}
+                            />
+                        </FieldWrapper>
+                        <FieldWrapper>
+                            <FieldLabel>Valor da conta</FieldLabel>
+                            <TextInput
+                                type="text"
+                                value={formatRealValue(value)}
+                                disabled
                                 onChange={(e) => setValue(e.target.value)}
                             />
                         </FieldWrapper>
-                        <FieldWrapper>
-                            <FieldLabel>Tipo</FieldLabel>
-                            <SelectInput
-                                value={type}
-                                onChange={(e) => setType(e.target.value)}
-                            >
-                                <option value="entrada">Entrada</option>
-                                <option value="saida">Saída</option>
-                            </SelectInput>
-                        </FieldWrapper>
                     </FieldRow>
-                    <FieldRow>
-                        <FieldWrapper>
-                            <FieldLabel>Competência</FieldLabel>
-                            <TextInput
-                                type="date"
-                                value={competencia}
-                                onChange={(e) => setCompetencia(e.target.value)}
-                            />
-                        </FieldWrapper>
-                        <FieldWrapper>
-                            <FieldLabel>Conta</FieldLabel>
-                            <SelectInput
-                                value={account}
-                                onChange={(e) => setAccount(e.target.value)}
-                            >
-                                <option value="" disabled>
-                                    Conta
-                                </option>
-                                <option value="1">Conta 1</option>
-                                <option value="2">Conta 2</option>
-                            </SelectInput>
-                        </FieldWrapper>
-                    </FieldRow>
-                    <FieldWrapper style={{ width: "360px" }}>
-                        <FieldLabel>Histórico</FieldLabel>
-                        <TextArea
-                            rows={9}
-                            style={{ width: "360px" }}
-                            value={historico}
-                            onChange={(e) => setHistorico(e.target.value)}
-                        />
-                    </FieldWrapper>
+
                     <PanelActions>
                         <button type="button" onClick={() => setShowLaunch(false)}>
                             Cancelar
@@ -184,4 +135,4 @@ const BankAccount: React.FC = () => {
     )
 }
 
-export default BankAccount;
+export default BankAccountScreen;
