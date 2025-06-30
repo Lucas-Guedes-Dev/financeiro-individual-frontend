@@ -1,41 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "./style";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, AreaChart, Area, LabelList
 } from 'recharts';
-
-const data = [
-  { name: "Jan", uv: 400, pv: 240, amt: 2400 },
-  { name: "Feb", uv: 300, pv: 456, amt: 2400 },
-  { name: "Mar", uv: 200, pv: 139, amt: 2400 },
-  { name: "Apr", uv: 278, pv: 390, amt: 2400 },
-  { name: "May", uv: 189, pv: 480, amt: 2400 },
-];
-
-const pieData = [
-  { name: "Ganhos", value: 500 },
-  { name: "Investimentos", value: 300 },
-  { name: "Lançamentos", value: 300 },
-  { name: "Gastos", value: 200 },
-];
+import Transactions from "../../services/transactions";
+import type { SummaryCategoryInfo, SummaryDREInfo, SummaryMonthlyInfo } from "../../services/transactions/types";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#e61a0b"];
 
-
-const pieTimelineData = [
-  { name: "Ganhos", start: 2020, duration: 2, role: "Ganhos" },
-  { name: "Investimentos", start: 2022, duration: 1, role: "Investimentos" },
-  { name: "Lançamentos", start: 2023, duration: 1, role: "Lançamentos" },
-  { name: "Gastos", start: 2021, duration: 2, role: "Gastos" },
-];
-
-const enrichedPieTimelineData = pieTimelineData.map((d) => ({
-  ...d,
-  end: d.start + d.duration,
-}));
-
 const Dashboard: React.FC = () => {
+  const service = new Transactions();
+
+  const [data, setData] = useState<SummaryMonthlyInfo[]>([]);
+  const [pieData, setPieData] = useState<SummaryCategoryInfo[]>([]);
+  const [pieTimelineData, setPieTimelineData] = useState<SummaryDREInfo[]>([]);
+
+  const getMonthlySummaryScreen = async () => {
+    const response = await service.getMonthlySummary();
+    setData(response)
+  }
+
+  const getCategorySummaryScreen = async () => {
+    const response = await service.getCategorySummary();
+
+    setPieData(response)
+  }
+
+  const getDRESummaryScreen = async () => {
+    const response = await service.getDRESummary();
+
+    setPieTimelineData(response)
+  }
+
+  const enrichedPieTimelineData = pieTimelineData.map((d) => ({
+    ...d,
+    end: d.start + d.duration,
+  }));
+
+  useEffect(() => {
+    getMonthlySummaryScreen();
+    getCategorySummaryScreen();
+    getDRESummaryScreen();
+  }, [])
+
   return (
     <Container>
       <div className="chart-container">
@@ -47,8 +55,8 @@ const Dashboard: React.FC = () => {
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="entradas" stroke="#8884d8" />
+            <Line type="monotone" dataKey="saidas" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -62,8 +70,8 @@ const Dashboard: React.FC = () => {
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            <Bar dataKey="pv" fill="#8884d8" />
-            <Bar dataKey="uv" fill="#82ca9d" />
+            <Bar dataKey="entradas" fill="#8884d8" />
+            <Bar dataKey="saidas" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -75,7 +83,7 @@ const Dashboard: React.FC = () => {
             <Pie
               data={pieData}
               dataKey="value"
-              nameKey="name"
+              nameKey="category"
               cx="50%"
               cy="50%"
               outerRadius={100}
@@ -91,7 +99,7 @@ const Dashboard: React.FC = () => {
         </ResponsiveContainer>
       </div>
 
-      <div className="chart-container">
+      {/* <div className="chart-container">
         <h2>Investimentos</h2>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={data}>
@@ -108,7 +116,7 @@ const Dashboard: React.FC = () => {
             <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
           </AreaChart>
         </ResponsiveContainer>
-      </div>
+      </div> */}
 
       <div className="chart-container">
         <h2>DRE - Linha do Tempo (Resumo Financeiro)</h2>

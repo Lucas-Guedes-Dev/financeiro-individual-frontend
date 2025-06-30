@@ -17,9 +17,6 @@ function App() {
                     <Layout />
                 </PrivateRoute>
             }>
-                <Route path="/" element={
-                    <div className="route-content">Início</div>
-                } />
                 <Route path="/dashboard" element={
                     <PrivateRoute>
                         <Dashboard />

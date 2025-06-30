@@ -1,5 +1,5 @@
 import api from "../api"
-import type { CreateTransaction, TransactionResponse } from "./types";
+import type { CreateTransaction, SummaryCategoryInfo, SummaryDREInfo, SummaryInfo, SummaryMonthlyInfo, TransactionResponse } from "./types";
 
 class Transactions {
     async create(data: CreateTransaction): Promise<boolean> {
@@ -42,6 +42,30 @@ class Transactions {
         }
 
         return false;
+    }
+
+    async getSummary(): Promise<SummaryInfo> {
+        const request = await api.get<SummaryInfo>(`/Transaction/Summary`);
+
+        return request.data;
+    }
+
+    async getMonthlySummary(): Promise<SummaryMonthlyInfo[]> {
+        const request = await api.get<SummaryMonthlyInfo[]>(`/Transaction/Monthly/Summary`);
+
+        return request.data;
+    }
+
+    async getCategorySummary(): Promise<SummaryCategoryInfo[]> {
+        const request = await api.get<SummaryCategoryInfo[]>(`/Transaction/Category/Summary`);
+
+        return request.data;
+    }
+
+    async getDRESummary(): Promise<SummaryDREInfo[]> {
+        const request = await api.get<SummaryDREInfo[]>(`/Transaction/DRE/Summary`);
+
+        return request.data;
     }
 }
 

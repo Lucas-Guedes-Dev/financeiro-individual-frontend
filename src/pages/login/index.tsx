@@ -31,7 +31,7 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         toast.success('Login realizado com sucesso');
         localStorage.setItem('token', response.data.access_token)
-        navigate('/');
+        navigate('/dashboard');
       }
     } catch (error: any) {
       if (error.status === 401) {

@@ -27,7 +27,8 @@ import BankAcoount from "../../services/bank-account";
 import type { BankAccountResponse } from "../../services/bank-account/types";
 import Transactions from "../../services/transactions";
 import { toast } from "react-toastify";
-import type { TransactionResponse } from "../../services/transactions/types";
+import type { SummaryInfo, TransactionResponse } from "../../services/transactions/types";
+import { formatRealValue } from "../../util";
 
 const TransactionsScreen: React.FC = () => {
   const bankService = new BankAcoount();
@@ -43,7 +44,7 @@ const TransactionsScreen: React.FC = () => {
   const [account, setAccount] = useState("");
   const [description, setDesciption] = useState("");
   const [bankAccountList, setBankAccountList] = useState<BankAccountResponse[]>([])
-
+  const [summary, setSumary] = useState<SummaryInfo>();
   const [rows, setRows] = useState<TransactionResponse[]>([]);
 
   const filteredRows = rows.filter((r) => {
@@ -81,13 +82,18 @@ const TransactionsScreen: React.FC = () => {
 
   const getAll = async () => {
     const response = await service.getAll();
-
     setRows(response);
+  }
+
+  const getSummaryScreen = async () => {
+    const response = await service.getSummary();
+    setSumary(response)
   }
 
   useEffect(() => {
     getAllBankAccounts()
     getAll()
+    getSummaryScreen()
   }, [])
 
   return (
@@ -150,11 +156,11 @@ const TransactionsScreen: React.FC = () => {
                   <td>{row.type}</td>
                   <td>{row.category}</td>
                   <td>{row.description}</td>
-                  <td>{row.bank_account_id}</td>
+                  <td>{row.bank_account_info.bank_name}</td>
                   <td
                     style={{ color: row.type === "entrada" ? "green" : "red" }}
                   >
-                    {row.amount}
+                    {formatRealValue(`${row.amount}`)}
                   </td>
                 </tr>
               ))}
@@ -170,25 +176,22 @@ const TransactionsScreen: React.FC = () => {
           <Summary>
             <SummaryItem>
               Quantidade de registros:
-              <strong>4</strong>
-            </SummaryItem>
-            <SummaryItem>
-              Saldo atual da conta:
-              <strong>R$ 100,00</strong>
+              <strong>{summary?.quantidade_registros || 0}</strong>
             </SummaryItem>
             <SummaryItem style={{ color: "green" }}>
               Entradas:
-              <strong>R$ 180,00</strong>
+              <strong>{summary?.entradas ? formatRealValue(`${summary?.entradas}`) : 'R$ 0'}</strong>
             </SummaryItem>
             <SummaryItem style={{ color: "red" }}>
               Saídas:
-              <strong>R$ 80,00</strong>
+              <strong>{summary?.saidas ? formatRealValue(`${summary?.saidas}`) : 'R$ 0'}</strong>
             </SummaryItem>
             <div style={{ marginTop: "10px" }}>
               <strong>Saldos</strong>
             </div>
-            <div>Conta 1 - R$ 70,00</div>
-            <div>Conta 2 - R$ 30,00</div>
+            {bankAccountList.map((bank) => (
+              <div>{bank.bank_name} - {formatRealValue(`${bank.balance}`)}</div>
+            ))}
           </Summary>
         </SidePanel>
       ) : (
