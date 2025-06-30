@@ -1,9 +1,10 @@
 export interface CreateTransaction {
     type: string
     amount: number
-    category_id: string
+    category: string
     description: string
     date: string
+    bank_account_id: string
 }
 
 export interface TransactionResponse {
@@ -11,7 +12,8 @@ export interface TransactionResponse {
     user: string
     type: string
     amount: number
-    category_id: string
+    category: string
     description: string
     date: string
+    bank_account_id: string
 }

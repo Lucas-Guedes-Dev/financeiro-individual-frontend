@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPrint, FaFileExport, FaPlus, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   Container,
@@ -23,8 +23,16 @@ import {
   PanelActions,
   TabContainer,
 } from "./style";
+import BankAcoount from "../../services/bank-account";
+import type { BankAccountResponse } from "../../services/bank-account/types";
+import Transactions from "../../services/transactions";
+import { toast } from "react-toastify";
+import type { TransactionResponse } from "../../services/transactions/types";
 
-const CaixasEBancos: React.FC = () => {
+const TransactionsScreen: React.FC = () => {
+  const bankService = new BankAcoount();
+  const service = new Transactions();
+
   const [tab, setTab] = useState<string>("movimentacoes");
   const [showLaunch, setShowLaunch] = useState(false);
   const [showInfo, setShowInfo] = useState(true);
@@ -32,36 +40,55 @@ const CaixasEBancos: React.FC = () => {
   const [date, setDate] = useState("");
   const [value, setValue] = useState("");
   const [type, setType] = useState("entrada");
-  const [competencia, setCompetencia] = useState("");
   const [account, setAccount] = useState("");
-  const [historico, setHistorico] = useState("");
+  const [description, setDesciption] = useState("");
+  const [bankAccountList, setBankAccountList] = useState<BankAccountResponse[]>([])
 
-  const rows = [
-    {
-      id: 1,
-      data: "01/06/2025",
-      historico: "Ref. ao pedido de venda nº 12345 | Método de pagamento: PIX",
-      cliente: "Fulano LTDA",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "V 100,00",
-      type: "entrada" as const,
-    },
-    {
-      id: 2,
-      data: "01/06/2025",
-      historico: "Ref. ao pedido de venda nº 12345 | Método de pagamento: PIX",
-      cliente: "Fulano LTDA",
-      conta: "02 - Mercado Livre (Ebazarr)",
-      valor: "V 100,00",
-      type: "saida" as const,
-    }
-  ];
+  const [rows, setRows] = useState<TransactionResponse[]>([]);
 
   const filteredRows = rows.filter((r) => {
     if (tab === "entradas") return r.type === "entrada";
     if (tab === "saidas") return r.type === "saida";
     return true;
   });
+
+  const getAllBankAccounts = async () => {
+    const response = await bankService.getAll();
+
+    setBankAccountList(response)
+  }
+
+  const createTransaction = async () => {
+    const response = await service.create({
+      type: type,
+      amount: Number(value),
+      category: category,
+      description: description,
+      date: date,
+      bank_account_id: account
+    })
+
+    if (response) {
+      toast.success('Transação criada com sucesso.')
+      setShowLaunch(false);
+      return;
+    }
+
+    toast.error('Falha ao criar a transação.')
+    setShowLaunch(false);
+    return;
+  }
+
+  const getAll = async () => {
+    const response = await service.getAll();
+
+    setRows(response);
+  }
+
+  useEffect(() => {
+    getAllBankAccounts()
+    getAll()
+  }, [])
 
   return (
     <Container>
@@ -106,9 +133,9 @@ const CaixasEBancos: React.FC = () => {
               <tr>
                 <th></th>
                 <th>Data</th>
+                <th>Tipo</th>
                 <th>Categoria</th>
-                <th>Histórico</th>
-                <th>Cliente/Fornecedor</th>
+                <th>Descrição</th>
                 <th>Conta</th>
                 <th>Valor</th>
               </tr>
@@ -119,15 +146,15 @@ const CaixasEBancos: React.FC = () => {
                   <td>
                     <input type="checkbox" />
                   </td>
-                  <td>{row.data}</td>
-                  <td></td>
-                  <td>{row.historico}</td>
-                  <td>{row.cliente}</td>
-                  <td>{row.conta}</td>
+                  <td>{row.date}</td>
+                  <td>{row.type}</td>
+                  <td>{row.category}</td>
+                  <td>{row.description}</td>
+                  <td>{row.bank_account_id}</td>
                   <td
                     style={{ color: row.type === "entrada" ? "green" : "red" }}
                   >
-                    {row.valor}
+                    {row.amount}
                   </td>
                 </tr>
               ))}
@@ -175,15 +202,7 @@ const CaixasEBancos: React.FC = () => {
         <PanelForm
           onSubmit={(e) => {
             e.preventDefault();
-            console.log({
-              category,
-              date,
-              value,
-              type,
-              competencia,
-              account,
-              historico,
-            });
+            createTransaction();
           }}
         >
           <FieldWrapper style={{ width: "380px" }}>
@@ -233,14 +252,6 @@ const CaixasEBancos: React.FC = () => {
           </FieldRow>
           <FieldRow>
             <FieldWrapper>
-              <FieldLabel>Competência</FieldLabel>
-              <TextInput
-                type="date"
-                value={competencia}
-                onChange={(e) => setCompetencia(e.target.value)}
-              />
-            </FieldWrapper>
-            <FieldWrapper>
               <FieldLabel>Conta</FieldLabel>
               <SelectInput
                 value={account}
@@ -249,18 +260,19 @@ const CaixasEBancos: React.FC = () => {
                 <option value="" disabled>
                   Conta
                 </option>
-                <option value="1">Conta 1</option>
-                <option value="2">Conta 2</option>
+                {bankAccountList.map((value, index) => (
+                  <option value={value.id} key={index}>{value.bank_name}</option>
+                ))}
               </SelectInput>
             </FieldWrapper>
           </FieldRow>
           <FieldWrapper style={{ width: "360px" }}>
-            <FieldLabel>Histórico</FieldLabel>
+            <FieldLabel>Descrição</FieldLabel>
             <TextArea
               rows={9}
               style={{ width: "360px" }}
-              value={historico}
-              onChange={(e) => setHistorico(e.target.value)}
+              value={description}
+              onChange={(e) => setDesciption(e.target.value)}
             />
           </FieldWrapper>
           <PanelActions>
@@ -275,4 +287,4 @@ const CaixasEBancos: React.FC = () => {
   );
 };
 
-export default CaixasEBancos;
+export default TransactionsScreen;
